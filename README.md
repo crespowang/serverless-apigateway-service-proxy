@@ -8,6 +8,10 @@
 
 This Serverless Framework plugin supports the AWS service proxy integration feature of API Gateway. You can directly connect API Gateway to AWS services without Lambda.
 
+## Serverless v4 Compatibility
+
+Version 3.0.1 adds compatibility with Serverless Framework v4. This version fixes issues with ES modules imports that were causing errors in Serverless v4 projects.
+
 ## TOC
 
 - [Install](#install)
@@ -404,9 +408,10 @@ custom:
             serverError: |-
               { "message": "there was an error handling your request" }
 ```
+
 #### Allow Binary Type
 
-In order to allow the browser to recognize binary type (e.g. images), add the following. 
+In order to allow the browser to recognize binary type (e.g. images), add the following.
 
 This would impact Rest API [settings](https://github.com/serverless/serverless/blob/main/lib/plugins/aws/package/compile/events/api-gateway/lib/rest-api.js#8,21) which is [called](https://github.com/serverless-operations/serverless-apigateway-service-proxy/blob/9f41894cd2e458263d3128116aa6af19ec2b333b/lib/index.js#7,81) by our plugin
 
@@ -414,8 +419,9 @@ This would impact Rest API [settings](https://github.com/serverless/serverless/b
 #provider.apiGateway.binaryMediaTypes
 provider:
   apiGateway:
-    binaryMediaTypes: "*/*"
+    binaryMediaTypes: '*/*'
 ```
+
 ### SNS
 
 Sample syntax for SNS proxy in `serverless.yml`.
@@ -494,7 +500,7 @@ The object keys correspond to the API Gateway [integration response](https://doc
 
 ##### Content Handling and Pass Through Behaviour customization
 
-If you want to work with binary fata, you can not specify `contentHandling` and `PassThrough` inside the `request` object.  
+If you want to work with binary fata, you can not specify `contentHandling` and `PassThrough` inside the `request` object.
 
 ```yml
 custom:
@@ -642,7 +648,6 @@ custom:
             responseTemplates:
               application/json: |-
                 #set($item = $input.path('$.Item')){ "Item": $item }
-
 ```
 
 ### EventBridge
@@ -652,14 +657,14 @@ Sample syntax for EventBridge proxy in `serverless.yml`.
 ```yaml
 custom:
   apiGatewayServiceProxies:
-    - eventbridge:  # source and detailType are hardcoded; detail defaults to POST body
+    - eventbridge: # source and detailType are hardcoded; detail defaults to POST body
         path: /eventbridge
         method: post
         source: 'hardcoded_source'
         detailType: 'hardcoded_detailType'
         eventBusName: { Ref: 'YourBusName' }
         cors: true
-    - eventbridge:  # source and detailType as path parameters
+    - eventbridge: # source and detailType as path parameters
         path: /eventbridge/{detailTypeKey}/{sourceKey}
         method: post
         detailType:
@@ -668,7 +673,7 @@ custom:
           pathParam: sourceKey
         eventBusName: { Ref: 'YourBusName' }
         cors: true
-    - eventbridge:  # source, detail, and detailType as body parameters
+    - eventbridge: # source, detail, and detailType as body parameters
         path: /eventbridge/{detailTypeKey}/{sourceKey}
         method: post
         detailType:
@@ -799,8 +804,6 @@ resources:
 
 Source: [AWS::ApiGateway::Method docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-authorizationtype)
 
-
-
 ### Enabling API Token Authentication
 
 You can indicate whether the method requires clients to submit a valid API key using `private` flag:
@@ -826,7 +829,6 @@ which is the same syntax used in Serverless framework.
 Source: [Serverless: Setting API keys for your Rest API](https://serverless.com/framework/docs/providers/aws/events/apigateway/#setting-api-keys-for-your-rest-api)
 
 Source: [AWS::ApiGateway::Method docs](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-apigateway-method.html#cfn-apigateway-method-apikeyrequired)
-
 
 ### Using a Custom IAM Role
 

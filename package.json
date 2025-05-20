@@ -1,6 +1,6 @@
 {
-  "name": "serverless-apigateway-service-proxy",
-  "version": "2.2.1",
+  "name": "@inquisitive/serverless-apigateway-service-proxy",
+  "version": "3.0.1",
   "description": "The Serverless Framework plugin for supporting AWS service proxy integration of API Gateway",
   "main": "lib/index.js",
   "scripts": {
@@ -25,31 +25,29 @@
   },
   "dependencies": {
     "@hapi/joi": "^15.1.0",
-    "common-tags": "^1.8.0"
-  },
-  "peerDependencies": {
-    "serverless": ">=3"
+    "common-tags": "^1.8.2",
+    "serverless": "^4.10.1"
   },
   "jest": {
     "setupFilesAfterEnv": [
       "<rootDir>/__tests__/setup-tests.js"
     ]
   },
-  "author": "horike37",
+  "author": "crespo.wang@inquisitive.com",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^8.1.0",
-    "aws-sdk": "^2.496.0",
-    "aws-testing-library": "^1.0.8",
+    "aws-sdk": "^2.1692.0",
+    "aws-testing-library": "^4.0.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
     "coveralls": "^3.0.5",
-    "eslint": "^6.0.1",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.2",
-    "eslint-plugin-prettier": "^3.1.0",
-    "husky": "^3.0.1",
+    "eslint": "^9.23.0",
+    "eslint-config-prettier": "^10.1.0",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-prettier": "^5.2.1",
+    "husky": "^9.1.7",
     "jest-circus": "^24.8.0",
     "jest-cli": "^24.8.0",
     "js-yaml": "^3.13.1",
@@ -58,14 +56,13 @@
     "mocha-lcov-reporter": "^1.3.0",
     "node-fetch": "^2.6.0",
     "nyc": "^15.1.0",
-    "prettier": "^1.18.2",
-    "semantic-release": "^19.0.3",
-    "serverless": "^3.7.5",
+    "prettier": "^3.5.3",
+    "semantic-release": "^24.2.3",
     "sinon": "^7.3.2",
     "sinon-chai": "^3.3.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/horike37/serverless-apigateway-service-proxy.git"
+    "url": "https://github.com/crespowang/serverless-apigateway-service-proxy.git"
   }
 }
