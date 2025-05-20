@@ -14,6 +14,8 @@ Version 3.0.1 adds compatibility with Serverless Framework v4. This version fixe
 
 Version 3.0.2 fixes an additional file path issue where the require path for compileResources didn't match the actual file name (compileResource.js).
 
+Version 3.0.3 fixes another path issue in get-stack-info.js where it was looking for resolve-cf-import-value.js in the wrong location.
+
 ## TOC
 
 - [Serverless APIGateway Service Proxy](#serverless-apigateway-service-proxy)
