@@ -44,3 +44,5 @@ tmpdirs-serverless
 .eslintcache
 .serverless
 .vscode
+
+.tgz
