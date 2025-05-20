@@ -1,6 +1,6 @@
 {
   "name": "@inquisitive/serverless-apigateway-service-proxy",
-  "version": "3.0.3",
+  "version": "3.0.4",
   "description": "The Serverless Framework plugin for supporting AWS service proxy integration of API Gateway",
   "main": "lib/index.js",
   "scripts": {
