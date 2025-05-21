@@ -1,6 +1,6 @@
 # @inquisitive/serverless-apigateway-service-proxy
 
-[![npm version](https://badge.fury.io/js/%40inquisitive%2Fserverless-apigateway-service-proxy.svg)](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy)
+[![npm version](https://img.shields.io/badge/npm-v4.0.0-blue.svg)](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy/v/4.0.0)
 
 This is a fork of the [serverless-operations/serverless-apigateway-service-proxy](https://github.com/serverless-operations/serverless-apigateway-service-proxy) project that fixes compatibility with Serverless Framework v4 (issue [#170](https://github.com/serverless-operations/serverless-apigateway-service-proxy/issues/170)).
 
