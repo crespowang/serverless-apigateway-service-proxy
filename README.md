@@ -14,9 +14,17 @@ The Serverless API Gateway Service Proxy plugin enables direct integration betwe
 
 ## Installation
 
+You can install this plugin from npm:
+
 ```bash
-npm install @inquisitive/serverless-apigateway-service-proxy
+# Using npm
+npm install @inquisitive/serverless-apigateway-service-proxy --save-dev
+
+# Using yarn
+yarn add @inquisitive/serverless-apigateway-service-proxy --dev
 ```
+
+![NPM](https://nodei.co/npm/@inquisitive/serverless-apigateway-service-proxy.png)
 
 ## Usage
 

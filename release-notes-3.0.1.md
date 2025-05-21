@@ -1,5 +1,7 @@
 # Serverless API Gateway Service Proxy v3.0.1
 
+📦 [View on npm](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy/v/3.0.1) | [Install](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy) | [GitHub](https://github.com/crespowang/serverless-apigateway-service-proxy)
+
 ## Major Changes
 
 - **Serverless Framework v4 Compatibility**: Updated the plugin to work with the latest Serverless Framework v4

@@ -1,5 +1,7 @@
 # Serverless API Gateway Service Proxy v2.2.1
 
+📦 [View on npm](https://www.npmjs.com/package/serverless-apigateway-service-proxy/v/2.2.1) | [Install](https://www.npmjs.com/package/serverless-apigateway-service-proxy) | [GitHub](https://github.com/crespowang/serverless-apigateway-service-proxy)
+
 ## Features
 
 - **Enhanced S3 Integration**: Added support for HTTP 206 Partial Content response with its relevant headers

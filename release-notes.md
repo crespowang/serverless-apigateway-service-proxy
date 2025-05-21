@@ -1,5 +1,7 @@
 # Serverless API Gateway Service Proxy v4.0.0
 
+📦 [View on npm](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy/v/4.0.0) | [Install](https://www.npmjs.com/package/@inquisitive/serverless-apigateway-service-proxy) | [GitHub](https://github.com/crespowang/serverless-apigateway-service-proxy)
+
 ## Major Changes
 
 - **Upgraded AWS SDK from v2 to v3**: This is a significant update that modernizes the codebase and provides better TypeScript support, modularity, and middleware capabilities
