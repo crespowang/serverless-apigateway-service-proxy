@@ -5,19 +5,31 @@ const yaml = require('js-yaml')
 const fs = require('fs')
 const path = require('path')
 const execSync = require('child_process').execSync
-const aws = require('aws-sdk')
-const s3 = new aws.S3()
+
+// AWS SDK v3 imports - modular approach
+const { S3Client, GetObjectCommand, DeleteObjectCommand } = require('@aws-sdk/client-s3')
+const {
+  DynamoDBClient,
+  GetItemCommand,
+  PutItemCommand,
+  ScanCommand,
+  DeleteItemCommand
+} = require('@aws-sdk/client-dynamodb')
+const { CloudFormationClient, DescribeStacksCommand } = require('@aws-sdk/client-cloudformation')
 
 const region = 'us-east-1'
-const dynamodb = new aws.DynamoDB({ region })
-const cloudformation = new aws.CloudFormation({ region })
+const s3Client = new S3Client({ region })
+const dynamodbClient = new DynamoDBClient({ region })
+const cloudformationClient = new CloudFormationClient({ region })
 
 function getApiGatewayEndpoint(outputs) {
   return outputs.ServiceEndpoint.match(/https:\/\/.+\.execute-api\..+\.amazonaws\.com.+/)[0]
 }
 
 async function getStackOutputs(stackName) {
-  const result = await cloudformation.describeStacks({ StackName: stackName }).promise()
+  const result = await cloudformationClient.send(
+    new DescribeStacksCommand({ StackName: stackName })
+  )
   const stack = result.Stacks[0]
 
   const keys = stack.Outputs.map((x) => x.OutputKey)
@@ -27,14 +39,14 @@ async function getStackOutputs(stackName) {
 }
 
 async function getDynamodbItemWithHashKey(tableName, hashKeyAttribute, hashKey) {
-  return await dynamodb
-    .getItem({
+  return await dynamodbClient.send(
+    new GetItemCommand({
       Key: {
         [hashKeyAttribute]: hashKey
       },
       TableName: tableName
     })
-    .promise()
+  )
 }
 
 async function getDynamodbItemWithHashKeyAndRangeKey(
@@ -44,28 +56,28 @@ async function getDynamodbItemWithHashKeyAndRangeKey(
   rangeKeyAttribute,
   rangeKey
 ) {
-  return await dynamodb
-    .getItem({
+  return await dynamodbClient.send(
+    new GetItemCommand({
       Key: {
         [hashKeyAttribute]: hashKey,
         [rangeKeyAttribute]: rangeKey
       },
       TableName: tableName
     })
-    .promise()
+  )
 }
 
 async function putDynamodbItem(tableName, item) {
-  await dynamodb
-    .putItem({
+  await dynamodbClient.send(
+    new PutItemCommand({
       Item: item,
       TableName: tableName
     })
-    .promise()
+  )
 }
 
 async function cleanUpDynamodbItems(tableName, hashKeyAttribute, rangeKeyAttribute) {
-  const items = await dynamodb.scan({ TableName: tableName }).promise()
+  const items = await dynamodbClient.send(new ScanCommand({ TableName: tableName }))
   if (items.Count > 0) {
     await Promise.all(
       items.Items.map(async (item) => {
@@ -76,35 +88,35 @@ async function cleanUpDynamodbItems(tableName, hashKeyAttribute, rangeKeyAttribu
         if (rangeKeyAttribute) {
           key[rangeKeyAttribute] = item[rangeKeyAttribute]
         }
-        await dynamodb
-          .deleteItem({
+        await dynamodbClient.send(
+          new DeleteItemCommand({
             Key: key,
             TableName: tableName
           })
-          .promise()
+        )
       })
     )
   }
 }
 
 async function getS3Object(bucket, key) {
-  const resp = await s3
-    .getObject({
+  const resp = await s3Client.send(
+    new GetObjectCommand({
       Bucket: bucket,
       Key: key
     })
-    .promise()
+  )
 
   return resp.Body
 }
 
 async function deleteS3Object(bucket, key) {
-  await s3
-    .deleteObject({
+  await s3Client.send(
+    new DeleteObjectCommand({
       Bucket: bucket,
       Key: key
     })
-    .promise()
+  )
 }
 
 function deployService(stage, config) {
@@ -123,9 +135,7 @@ function removeService(stage, config) {
 
 async function deployWithRandomStage(config) {
   const serviceName = yaml.safeLoad(fs.readFileSync(config)).service
-  const stage = Math.random()
-    .toString(32)
-    .substring(2)
+  const stage = Math.random().toString(32).substring(2)
   const stackName = `${serviceName}-${stage}`
   deployService(stage, config)
   const outputs = await getStackOutputs(stackName)

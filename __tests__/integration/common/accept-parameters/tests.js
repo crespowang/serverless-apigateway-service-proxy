@@ -1,5 +1,5 @@
 'use strict'
-const AWS = require('aws-sdk')
+const { SQSClient, ReceiveMessageCommand } = require('@aws-sdk/client-sqs')
 const expect = require('chai').expect
 
 const fetch = require('node-fetch')
@@ -48,10 +48,14 @@ describe('Single SQS Proxy Integration Test', () => {
     expect(json.SendMessageResponse.SendMessageResult).to.have.own.property('SequenceNumber')
     expect(json.SendMessageResponse.ResponseMetadata).to.have.own.property('RequestId')
 
-    const sqs = new AWS.SQS({ region })
-    const { Messages = [] } = await sqs
-      .receiveMessage({ QueueUrl: queueUrl, WaitTimeSeconds: 20, MessageAttributeNames: ['.*'] })
-      .promise()
+    const sqsClient = new SQSClient({ region })
+    const { Messages = [] } = await sqsClient.send(
+      new ReceiveMessageCommand({
+        QueueUrl: queueUrl,
+        WaitTimeSeconds: 20,
+        MessageAttributeNames: ['.*']
+      })
+    )
 
     expect(Messages).to.have.length(1)
     expect(Messages[0].Body).to.deep.equal(body)

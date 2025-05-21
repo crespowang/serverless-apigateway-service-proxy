@@ -1,6 +1,6 @@
 {
   "name": "@inquisitive/serverless-apigateway-service-proxy",
-  "version": "3.0.5",
+  "version": "4.0.0",
   "description": "The Serverless Framework plugin for supporting AWS service proxy integration of API Gateway",
   "main": "lib/index.js",
   "scripts": {
@@ -36,9 +36,15 @@
   "author": "crespo.wang@inquisitive.com",
   "license": "MIT",
   "devDependencies": {
+    "@aws-sdk/client-cloudformation": "^3.504.0",
+    "@aws-sdk/client-dynamodb": "^3.504.0",
+    "@aws-sdk/client-s3": "^3.504.0",
+    "@aws-sdk/client-sqs": "^3.504.0",
+    "@aws-sdk/client-sns": "^3.504.0",
+    "@aws-sdk/client-kinesis": "^3.504.0",
+    "@aws-sdk/client-eventbridge": "^3.504.0",
     "@commitlint/cli": "^17.1.2",
     "@commitlint/config-conventional": "^8.1.0",
-    "aws-sdk": "^2.1692.0",
     "aws-testing-library": "^4.0.6",
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
